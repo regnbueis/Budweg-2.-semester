@@ -6,6 +6,7 @@ namespace Budweg_KommeGaaSystem.Models
 {
     public class Building
     {
-        public int BuildingNumber { get; set; }
+        public int BuildingId { get; set; }
+        public string BuildingName { get; set; }
     }
 }
