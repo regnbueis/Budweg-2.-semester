@@ -7,12 +7,23 @@ namespace Budweg_KommeGaaSystem.ViewModels
 {
     public class BuildingViewModel
     {
-        private Building building;
-        public string BuildingName { get { return building.BuildingName; } }
+        private Building _building;
+        
+        public int BuildingId 
+        { 
+            get 
+            { return _building.BuildingId; } 
+            set { _building.BuildingId = value; } 
+        }
+        public string BuildingName 
+        { 
+            get { return _building.BuildingName; } 
+            set { _building.BuildingName = value; } 
+        }
 
         public BuildingViewModel(Building building)
         {
-            this.building = building;
+            _building = building;
         }
     }
 }
