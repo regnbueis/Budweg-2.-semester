@@ -11,6 +11,6 @@ namespace Budweg_KommeGaaSystem
             .AddJsonFile("appsettings.json")
             .Build();
 
-        public static string ConnectionString = configuration.GetConnectionString("DefaultConnection") ?? "";
+        public static string ConnectionString = configuration.GetConnectionString("MyDBConnection") ?? "";
     }
 }
