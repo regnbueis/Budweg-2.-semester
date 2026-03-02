@@ -32,6 +32,8 @@ namespace Budweg_KommeGaaSystem.ViewModels
         {
             buildingRepo = new BuildingRepository();
             employeeRepo = new EmployeeRepository();
+            BuildingsVM = new ObservableCollection<BuildingViewModel>();
+            EmployeesVM = new ObservableCollection<EmployeeViewModel>();
 
             foreach (Building building in buildingRepo.GetAll())
             {

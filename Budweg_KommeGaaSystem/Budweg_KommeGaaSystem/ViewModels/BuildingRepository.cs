@@ -15,11 +15,14 @@ namespace Budweg_KommeGaaSystem.ViewModels
         {
             connectionString = Configuration.ConnectionString;
 
-            buildings = new List<Building>();
+            buildings = InitializeRepo();
+
         }
 
         public List<Building> InitializeRepo()
         {
+            List<Building> buildings = new List<Building>();
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
