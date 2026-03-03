@@ -33,7 +33,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    if (dr.Read())
+                    while (dr.Read())
                     {
                         Employee employee = new Employee
                         {

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Documents;
 using Budweg_KommeGaaSystem.Models;
 
 namespace Budweg_KommeGaaSystem.ViewModels
@@ -25,6 +26,24 @@ namespace Budweg_KommeGaaSystem.ViewModels
                 selectedBuilding = value;
                 OnPropertyChanged("SelectedBuilding");
                 LoadEmployeeInBuilding();
+            }
+        }
+
+        private string employeeToCheckIn;
+        public string EmployeeToCheckIn 
+        { 
+            get { return  employeeToCheckIn; }
+            set
+            {
+                employeeToCheckIn = value;
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    CheckInEmployeeAdmin();
+                    LoadEmployeeInBuilding();
+                    EmployeeToCheckIn = string.Empty;
+                    OnPropertyChanged("EmployeeToCheckIn");
+                    
+                }
             }
         }
 
@@ -51,6 +70,11 @@ namespace Budweg_KommeGaaSystem.ViewModels
             {
                 EmployeesVM.Add(new EmployeeViewModel(employee));
             }
+        }
+
+        public void CheckInEmployeeAdmin()
+        {
+            employeeRepo.UpdateEmployeeBuildingId(int.Parse(EmployeeToCheckIn), 1);
         }
 
 

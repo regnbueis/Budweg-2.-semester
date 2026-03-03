@@ -10,11 +10,13 @@ namespace Budweg_KommeGaaSystem.ViewModels
         private Employee _employee;
 
         public string EmployeeName { get; set; }
+        public int EmployeeId { get; set; }
 
         public EmployeeViewModel(Employee employee)
         {
             _employee = employee;
-            EmployeeName = $"{_employee.EmployeeId}: {_employee.FrontName} {_employee.LastName}";
+            EmployeeName = $"{_employee.EmployeeId}: {_employee.FrontName} {_employee.LastName}: {DateTime.Now.ToString("HH:mm:ss")}";
+            EmployeeId = _employee.EmployeeId;
         }
     }
 }
