@@ -15,18 +15,19 @@ namespace Budweg_KommeGaaSystem.ViewModels
         {
             connectionString = Configuration.ConnectionString;
 
-            buildings = InitializeRepo();
-
+            buildings = new List<Building>();
+            InitializeRepository();
         }
 
-        public List<Building> InitializeRepo()
+        public void InitializeRepository()
         {
-            List<Building> buildings = new List<Building>();
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT BuildingId, BuildingName FROM BUILDING", con);
+                
+                string query = "SELECT BuildingId, BuildingName FROM BUILDING";
+                SqlCommand cmd = new SqlCommand(query, con);
+
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
@@ -36,11 +37,11 @@ namespace Budweg_KommeGaaSystem.ViewModels
                             BuildingId = dr.GetInt32(0),
                             BuildingName = (string)dr["BuildingName"]
                         };
+
                         buildings.Add(building);
                     }
                 }
             }
-            return buildings;
         }
 
         public List<Building> GetAll()

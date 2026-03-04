@@ -85,7 +85,7 @@
                 <ListView ItemsSource="{Binding Path=EmployeesVM}" SelectedItem="{Binding Path=SelectedEmployee}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=EmployeeName}"/>
+                            <TextBlock Text="{Binding Path=EmployeeText}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

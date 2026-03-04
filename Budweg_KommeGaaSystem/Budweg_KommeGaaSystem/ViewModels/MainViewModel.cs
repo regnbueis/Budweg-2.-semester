@@ -13,6 +13,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
     {
         private BuildingRepository buildingRepo;
         private EmployeeRepository employeeRepo;
+        private RegistrationRepository registrationRepo;
 
         public ObservableCollection<BuildingViewModel> BuildingsVM { get; set; }
         public ObservableCollection<EmployeeViewModel> EmployeesVM { get; set; }
@@ -51,6 +52,8 @@ namespace Budweg_KommeGaaSystem.ViewModels
         {
             buildingRepo = new BuildingRepository();
             employeeRepo = new EmployeeRepository();
+            registrationRepo = new RegistrationRepository();
+
             BuildingsVM = new ObservableCollection<BuildingViewModel>();
             EmployeesVM = new ObservableCollection<EmployeeViewModel>();
 
@@ -63,18 +66,23 @@ namespace Budweg_KommeGaaSystem.ViewModels
 
         public void LoadEmployeeInBuilding()
         {
-            
-
             EmployeesVM.Clear();
-            foreach (Employee employee in employeeRepo.RetrieveEmployeesByBuildingId(SelectedBuilding.BuildingId))
+
+            List<Registration> registrations = registrationRepo.GetAllByBuildingId(SelectedBuilding.BuildingId);
+            registrations.ForEach(registration =>
             {
-                EmployeesVM.Add(new EmployeeViewModel(employee));
-            }
+                Employee? employee = employeeRepo.GetEmployeeById(registration.EmployeeId);
+                
+                if (employee != null)
+                {
+                    EmployeesVM.Add(new EmployeeViewModel(employee));
+                }
+            });
         }
 
         public void CheckInEmployeeAdmin()
         {
-            employeeRepo.UpdateEmployeeBuildingId(int.Parse(EmployeeToCheckIn), 1);
+            //employeeRepo.UpdateEmployeeBuildingId(int.Parse(EmployeeToCheckIn), 1);
         }
 
 

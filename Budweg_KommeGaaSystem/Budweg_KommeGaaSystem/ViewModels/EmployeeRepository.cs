@@ -16,20 +16,19 @@ namespace Budweg_KommeGaaSystem.ViewModels
         public EmployeeRepository()
         {
             connectionString = Configuration.ConnectionString;
-
+            
             employees = new List<Employee>();
+            InitializeRepository();
         }
 
-        public List<Employee> RetrieveEmployeesByBuildingId(int buildingId)
+        private void InitializeRepository()
         {
-            List<Employee> employees = new List<Employee>();
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT EmployeeId, FrontName, LastName, Department " +
-                    "From EMPLOYEE WHERE BuildingId = @BuildingId", con);
-                cmd.Parameters.AddWithValue("@BuildingId", buildingId);
+
+                string query = "SELECT EmployeeId, FrontName, LastName, Department FROM EMPLOYEE";
+                SqlCommand cmd = new SqlCommand(query, con);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
@@ -38,32 +37,45 @@ namespace Budweg_KommeGaaSystem.ViewModels
                         Employee employee = new Employee
                         {
                             EmployeeId = dr.GetInt32(0),
-                            FrontName = (string)dr["FrontName"],
+                            FirstName = (string)dr["FrontName"],
                             LastName = (string)dr["LastName"],
                             Department = (string)dr["Department"]
                         };
+
                         employees.Add(employee);
                     }
                 }
-
             }
-
-            return employees;
         }
 
-        public void UpdateEmployeeBuildingId(int employeeId, int buildingId)
+        public Employee? GetEmployeeById(int employeeId)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "UPDATE Employee SET BuildingId = @BuildingId " +
-                    "WHERE EmployeeId = @EmployeeId", con);
-
-                cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = employeeId;
-                cmd.Parameters.Add("@BuildingId", SqlDbType.Int).Value = buildingId;
-                cmd.ExecuteNonQuery();
-            }
+            return employees
+                .Where(x => x.EmployeeId == employeeId)
+                .FirstOrDefault();
         }
+
+        //public void UpdateEmployeeBuildingId(int employeeId, int buildingId)
+        //{
+        //    using (SqlConnection con = new SqlConnection(connectionString))
+        //    {
+        //        con.Open();
+
+        //        //string query = "UPDATE EMPLOYEE SET BuildingId = @BuildingId WHERE EmployeeId = @EmployeeId";
+        //        string query = "EXEC spUpdateEmployeeBuilding @EmployeeId = @EmployeeId, @BuildingId = @BuildingId";
+        //        SqlCommand cmd = new SqlCommand(query, con);
+
+        //        cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = employeeId;
+        //        cmd.Parameters.Add("@BuildingId", SqlDbType.Int).Value = buildingId;
+
+        //        int affectedRows = cmd.ExecuteNonQuery();
+        //        if (affectedRows > 0)
+        //        {
+        //            Employee? employee = employees
+        //                .Find(x => x.EmployeeId == employeeId);
+
+        //        }
+        //    }
+        //}
     }
 }
