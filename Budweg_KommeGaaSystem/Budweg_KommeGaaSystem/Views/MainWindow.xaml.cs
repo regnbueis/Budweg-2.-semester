@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Budweg_KommeGaaSystem.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,13 @@ namespace Budweg_KommeGaaSystem
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel mvm;
+
         public MainWindow()
         {
             InitializeComponent();
+            mvm = new MainViewModel();
+            DataContext = mvm;
         }
     }
 }

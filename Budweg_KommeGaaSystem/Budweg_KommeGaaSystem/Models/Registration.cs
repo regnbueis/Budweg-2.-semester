@@ -7,7 +7,7 @@ namespace Budweg_KommeGaaSystem.Models
     public class Registration
     {
         public int RegistrationId { get; set; }
-        private DateTime arrival;
-        private DateTime departure;
+        public DateTime Arrival { get; set; }
+        public DateTime Departure { get; set; }
     }
 }
