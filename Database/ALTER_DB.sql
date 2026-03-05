@@ -1,6 +1,9 @@
 USE Budweg_Database;
 GO
 
+EXEC sp_rename 'EMPLOYEE.FrontName', 'FirstName', 'COLUMN';
+GO
+
 ALTER TABLE EMPLOYEE DROP CONSTRAINT FK_Employee_Building;
 ALTER TABLE EMPLOYEE DROP COLUMN BuildingId;
 GO
@@ -14,4 +17,7 @@ GO
 INSERT INTO REGISTRATION (Arrival, EmployeeId, BuildingId) 
 	VALUES (GETDATE(), 1, 1);
 
+GO
+
+SELECT * FROM EMPLOYEE;
 SELECT * FROM REGISTRATION;
