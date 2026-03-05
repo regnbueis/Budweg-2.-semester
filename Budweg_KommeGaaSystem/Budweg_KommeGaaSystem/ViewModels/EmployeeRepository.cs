@@ -27,7 +27,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
             {
                 con.Open();
 
-                string query = "SELECT EmployeeId, FrontName, LastName, Department FROM EMPLOYEE";
+                string query = "SELECT EmployeeId, FirstName, LastName, Department FROM EMPLOYEE";
                 SqlCommand cmd = new SqlCommand(query, con);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -37,7 +37,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
                         Employee employee = new Employee
                         {
                             EmployeeId = dr.GetInt32(0),
-                            FirstName = (string)dr["FrontName"],
+                            FirstName = (string)dr["FirstName"],
                             LastName = (string)dr["LastName"],
                             Department = (string)dr["Department"]
                         };
