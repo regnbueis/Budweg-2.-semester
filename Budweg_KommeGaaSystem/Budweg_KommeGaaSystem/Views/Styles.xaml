@@ -12,8 +12,8 @@
     
     
     <Style TargetType="Border"  >
-        <Setter Property="CornerRadius" Value="10" />
-        <Setter Property="BorderThickness" Value="10"/>
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="Aqua" />
     </Style>
 
@@ -22,7 +22,7 @@
 
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Left" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="#00AC58" />
 
     </Style>
 
@@ -31,7 +31,7 @@
 
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Left" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="#00AC58"  />
 
 
     </Style>
