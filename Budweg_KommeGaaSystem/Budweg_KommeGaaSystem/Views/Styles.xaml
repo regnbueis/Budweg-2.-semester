@@ -1,25 +1,20 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-
-  <Style TargetType="Control" x:Key="DefaultStyles">
-        <Setter Property="FontFamily" Value="Calibri"/>
-        <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="FontSize" Value="18" />
-        <Setter Property="Padding" Value="10" />
-
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="#DFDFDF" />
     </Style>
-    
     
     <Style TargetType="Border"  >
         <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="Aqua" />
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
     
-    <Style TargetType="TextBox" BasedOn="{StaticResource DefaultStyles}">
-
+    <Style TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="Foreground" Value="#00AC58" />
@@ -27,12 +22,40 @@
     </Style>
 
 
-    <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultStyles}">
-
+    <Style TargetType="TextBlock" x:Key="TextBlockDefault" >
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Left" />
-        <Setter Property="Foreground" Value="#00AC58"  />
+        <Setter Property="Foreground" Value="#000000"  />
+    </Style>
 
+    <Style TargetType="TextBlock" x:Key="TextBlockH1" BasedOn="{StaticResource TextBlockDefault}" >
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+
+    </Style>
+
+
+    <Style TargetType="TextBlock" x:Key="TextBlockH2" BasedOn="{StaticResource TextBlockDefault}" >
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Foreground" Value="#00AC58"  />
+    </Style>
+
+
+
+    <Style TargetType="TextBlock" x:Key="TextBlockList" BasedOn="{StaticResource TextBlockDefault}" >
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="30" />
+
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="TextBlockOutputList" BasedOn="{StaticResource TextBlockDefault}" >
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="20" />
 
     </Style>
 
