@@ -15,8 +15,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
         private EmployeeRepository employeeRepo;
         private RegistrationRepository registrationRepo;
 
-        public ObservableCollection<BuildingViewModel> BuildingsVMs { get; set; }
-        public ObservableCollection<EmployeeViewModel> EmployeesVMs { get; set; }
+        public ObservableCollection<BuildingViewModel> BuildingVMs { get; set; }
         public ObservableCollection<RegistrationViewModel> RegistrationVMs { get; set; }
 
         private BuildingViewModel selectedBuilding;
@@ -35,18 +34,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
         public string EmployeeToCheckIn 
         { 
             get { return  employeeToCheckIn; }
-            set
-            {
-                employeeToCheckIn = value;
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    CheckInEmployeeAdmin();
-                    LoadEmployeeInBuilding();
-                    EmployeeToCheckIn = string.Empty;
-                    OnPropertyChanged("EmployeeToCheckIn");
-                    
-                }
-            }
+            set { employeeToCheckIn = value; }
         }
 
         public MainViewModel()
@@ -55,34 +43,36 @@ namespace Budweg_KommeGaaSystem.ViewModels
             employeeRepo = new EmployeeRepository();
             registrationRepo = new RegistrationRepository();
 
-            BuildingsVMs = new ObservableCollection<BuildingViewModel>();
-            EmployeesVMs = new ObservableCollection<EmployeeViewModel>();
+            BuildingVMs = new ObservableCollection<BuildingViewModel>();
+            RegistrationVMs = new ObservableCollection<RegistrationViewModel>();
 
             foreach (Building building in buildingRepo.GetAll())
             {
-                BuildingsVMs.Add(new BuildingViewModel(building));
+                BuildingVMs.Add(new BuildingViewModel(building));
             }
         }
 
 
         public void LoadEmployeeInBuilding()
         {
-            EmployeesVMs.Clear();
-
+            RegistrationVMs.Clear();
+            
             List<Registration> registrations = registrationRepo.GetAllByBuildingId(SelectedBuilding.BuildingId);
             registrations.ForEach(registration =>
             {
                 Employee? employee = employeeRepo.GetEmployeeById(registration.EmployeeId);
-                
+
                 if (employee != null)
                 {
-                    EmployeesVMs.Add(new EmployeeViewModel(employee));
+                    RegistrationViewModel registrationViewModel = new RegistrationViewModel(registration, employee);
+                    RegistrationVMs.Add(registrationViewModel);
                 }
             });
         }
 
         public void CheckInEmployeeAdmin()
         {
+
             //employeeRepo.UpdateEmployeeBuildingId(int.Parse(EmployeeToCheckIn), 1);
         }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 using Budweg_KommeGaaSystem.Models;
 using Microsoft.Data.SqlClient;
 
@@ -57,6 +54,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
         {
             return registrations
                 .Where(x => x.BuildingId == buildingId)
+                .Where(x => x.Departure == null)
                 .ToList();
         }
 
@@ -64,12 +62,11 @@ namespace Budweg_KommeGaaSystem.ViewModels
         {
             Registration reg = new Registration();
             DateTime temp = DateTime.Now;
+
             using (SqlConnection con = new SqlConnection (connectionString))
             {
                 con.Open();
-                string query = "INSERT INTO REGISTRATION(Arrival, EmployeeId, BuildingId) " +
-                    "VALUES(@Arrival, @EmployeeId, @BuildingId) " +
-                    "SELECT @@IDENTITY";
+                string query = "EXEC spCreateEmployeeArrival @arrival = @Arrival, @employeeId = @EmployeeId, @buildingId = @BuildingId";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -81,9 +78,9 @@ namespace Budweg_KommeGaaSystem.ViewModels
                     reg.Arrival = temp;
                     reg.BuildingId = buildingId;
                     reg.EmployeeId = employeeId;
-                    
                 }
             }
+
             registrations.Add(reg);
         }
         
@@ -95,6 +92,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
                 con.Open();
                 string query = "UPDATE REGISTRATION SET Departure = @Departure " +
                     "WHERE EmployeeID = @EmployeeId";
+                
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add("@Departure", SqlDbType.DateTime2).Value = temp;
@@ -102,9 +100,8 @@ namespace Budweg_KommeGaaSystem.ViewModels
                     cmd.ExecuteNonQuery();
                 }
             }
+
             reg.Departure = temp;
         }
-
-
     }
 }

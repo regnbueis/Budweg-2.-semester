@@ -54,28 +54,5 @@ namespace Budweg_KommeGaaSystem.ViewModels
                 .Where(x => x.EmployeeId == employeeId)
                 .FirstOrDefault();
         }
-
-        //public void UpdateEmployeeBuildingId(int employeeId, int buildingId)
-        //{
-        //    using (SqlConnection con = new SqlConnection(connectionString))
-        //    {
-        //        con.Open();
-
-        //        //string query = "UPDATE EMPLOYEE SET BuildingId = @BuildingId WHERE EmployeeId = @EmployeeId";
-        //        string query = "EXEC spUpdateEmployeeBuilding @EmployeeId = @EmployeeId, @BuildingId = @BuildingId";
-        //        SqlCommand cmd = new SqlCommand(query, con);
-
-        //        cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = employeeId;
-        //        cmd.Parameters.Add("@BuildingId", SqlDbType.Int).Value = buildingId;
-
-        //        int affectedRows = cmd.ExecuteNonQuery();
-        //        if (affectedRows > 0)
-        //        {
-        //            Employee? employee = employees
-        //                .Find(x => x.EmployeeId == employeeId);
-
-        //        }
-        //    }
-        //}
     }
 }

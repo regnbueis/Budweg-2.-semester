@@ -91,10 +91,10 @@
 
             <TextBlock Text="Vælg bygning" Grid.Column="0" Grid.Row="0" Style="{StaticResource TextBlockH2}" />
 
-            <ListBox Grid.Column="0" Grid.Row="1" Padding="10"  ItemsSource="{Binding Path=BuildingsVM}" SelectedItem="{Binding Path=SelectedBuilding}">
+            <ListBox Grid.Column="0" Grid.Row="1" Padding="10"  ItemsSource="{Binding Path=BuildingVMs}" SelectedItem="{Binding Path=SelectedBuilding}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=BuildingName}" Style="{StaticResource TextBlockList}"/>
+                            <TextBlock Text="{Binding Path=Name}" Style="{StaticResource TextBlockList}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox> 
@@ -103,10 +103,10 @@
             <TextBlock Style="{StaticResource TextBlockH1}" Grid.Column="2" Grid.Row="0"  Text="{Binding Path=SelectedBuilding.BuildingName}" VerticalAlignment="Top"  />
 
 
-            <ListView Grid.Column="2" Grid.Row="1" Padding="10" ItemsSource="{Binding Path=EmployeesVM}" SelectedItem="{Binding Path=SelectedEmployee}">
+            <ListView Grid.Column="2" Grid.Row="1" Padding="10" ItemsSource="{Binding Path=RegistrationVMs}" SelectedItem="{Binding Path=SelectedEmployee}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=EmployeeText}" Style="{StaticResource TextBlockOutputList}"/>
+                        <TextBlock Text="{Binding Path=Text}" Style="{StaticResource TextBlockOutputList}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

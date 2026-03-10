@@ -15,7 +15,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
             { return _building.BuildingId; } 
             set { _building.BuildingId = value; } 
         }
-        public string BuildingName 
+        public string Name 
         { 
             get { return _building.BuildingName; } 
             set { _building.BuildingName = value; } 
