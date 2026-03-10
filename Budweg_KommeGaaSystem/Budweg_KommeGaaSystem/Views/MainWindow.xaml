@@ -48,9 +48,23 @@
 
             <TextBlock Text="Check In" Style="{StaticResource TextBlockH2}"  Grid.Column="1" Grid.Row="0" />
 
-            <TextBlock Text="Indtast medarbejdernummer" Style="{StaticResource TextBlockDefault}" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="2" />
+            <TextBlock Text="Indtast medarbejdernr." Style="{StaticResource TextBlockDefault}" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="2" />
 
             <TextBox Grid.Column="1" Grid.Row="3" Foreground="#3D3D41" Text="{Binding Path=EmployeeToCheckIn, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="18" TextAlignment="Center" TextWrapping="Wrap" BorderThickness="0"/>
+
+            <Grid Grid.Column="1" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Tjek ind" Command="{Binding Path=CheckInCommand}" CommandParameter="{Binding}"/>
+                <Button Grid.Column="2" Content="Tjek ud" Command="{Binding Path=CheckOutCommand}" CommandParameter="{Binding}"/>
+
+            </Grid>
+
+            
 
             <TextBlock Style="{StaticResource TextBlockDefault}" Grid.Column="1" Grid.Row="5" Foreground="#FFFFFF" Text="Tak, du er nu tjekket ind/ud af Admin"  />
 

@@ -15,8 +15,9 @@ namespace Budweg_KommeGaaSystem.ViewModels
         private EmployeeRepository employeeRepo;
         private RegistrationRepository registrationRepo;
 
-        public ObservableCollection<BuildingViewModel> BuildingsVM { get; set; }
-        public ObservableCollection<EmployeeViewModel> EmployeesVM { get; set; }
+        public ObservableCollection<BuildingViewModel> BuildingsVMs { get; set; }
+        public ObservableCollection<EmployeeViewModel> EmployeesVMs { get; set; }
+        public ObservableCollection<RegistrationViewModel> RegistrationVMs { get; set; }
 
         private BuildingViewModel selectedBuilding;
         public BuildingViewModel SelectedBuilding
@@ -54,19 +55,19 @@ namespace Budweg_KommeGaaSystem.ViewModels
             employeeRepo = new EmployeeRepository();
             registrationRepo = new RegistrationRepository();
 
-            BuildingsVM = new ObservableCollection<BuildingViewModel>();
-            EmployeesVM = new ObservableCollection<EmployeeViewModel>();
+            BuildingsVMs = new ObservableCollection<BuildingViewModel>();
+            EmployeesVMs = new ObservableCollection<EmployeeViewModel>();
 
             foreach (Building building in buildingRepo.GetAll())
             {
-                BuildingsVM.Add(new BuildingViewModel(building));
+                BuildingsVMs.Add(new BuildingViewModel(building));
             }
         }
 
 
         public void LoadEmployeeInBuilding()
         {
-            EmployeesVM.Clear();
+            EmployeesVMs.Clear();
 
             List<Registration> registrations = registrationRepo.GetAllByBuildingId(SelectedBuilding.BuildingId);
             registrations.ForEach(registration =>
@@ -75,7 +76,7 @@ namespace Budweg_KommeGaaSystem.ViewModels
                 
                 if (employee != null)
                 {
-                    EmployeesVM.Add(new EmployeeViewModel(employee));
+                    EmployeesVMs.Add(new EmployeeViewModel(employee));
                 }
             });
         }

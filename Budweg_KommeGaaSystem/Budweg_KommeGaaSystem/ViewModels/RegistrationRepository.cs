@@ -60,14 +60,49 @@ namespace Budweg_KommeGaaSystem.ViewModels
                 .ToList();
         }
 
-        public void CreateEmployeeArrival(int employee)
+        public void CreateEmployeeArrival(int employeeId, int buildingId)
         {
-            //IKKE IMPLEMENTERET ENDNU
+            Registration reg = new Registration();
+            DateTime temp = DateTime.Now;
+            using (SqlConnection con = new SqlConnection (connectionString))
+            {
+                con.Open();
+                string query = "INSERT INTO REGISTRATION(Arrival, EmployeeId, BuildingId) " +
+                    "VALUES(@Arrival, @EmployeeId, @BuildingId) " +
+                    "SELECT @@IDENTITY";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add("@Arrival", SqlDbType.DateTime2).Value = temp;
+                    cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = employeeId;
+                    cmd.Parameters.Add("@BuildingId", SqlDbType.Int).Value = buildingId;
+                    
+                    reg.RegistrationId = Convert.ToInt32(cmd.ExecuteScalar());
+                    reg.Arrival = temp;
+                    reg.BuildingId = buildingId;
+                    reg.EmployeeId = employeeId;
+                    
+                }
+            }
+            registrations.Add(reg);
         }
         
-        public void UpdateEmployeeDeparture(int employee)
+        public void UpdateEmployeeDeparture(Registration reg)
         {
-            //IKKE IMPLEMENTERET ENDNU
+            DateTime temp = DateTime.Now;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "UPDATE REGISTRATION SET Departure = @Departure " +
+                    "WHERE EmployeeID = @EmployeeId";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add("@Departure", SqlDbType.DateTime2).Value = temp;
+                    cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = reg.EmployeeId;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            reg.Departure = temp;
         }
 
 

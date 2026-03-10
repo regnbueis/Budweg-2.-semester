@@ -59,6 +59,10 @@
 
     </Style>
 
+    <Style TargetType="Button">
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
 
 
 
