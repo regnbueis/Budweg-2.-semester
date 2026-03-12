@@ -8,18 +8,37 @@ namespace Budweg_KommeGaaSystem.Command
 {
     public class CheckInCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        private readonly RegistrationRepository _registrationRepo;
+
+        public CheckInCommand(RegistrationRepository registrationRepo)
+        {
+            _registrationRepo = registrationRepo;
+        }
+
+        public event EventHandler? CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public bool CanExecute(object? parameter)
         {
             bool result = false;
             if (parameter is MainViewModel mvm)
             {
-                if (mvm.EmployeeToCheckInOut != string.Empty)
+                if (!string.IsNullOrWhiteSpace(mvm.EmployeeToCheckInOut))
                 {
-                    result = true;
+                    if (mvm.SelectedBuilding != null)
+                    {
+                        if (int.TryParse(mvm.EmployeeToCheckInOut, out int employeeId))
+                        {
+                            result = true;
+                        }
+                    }
                 }
             }
+
+            CommandManager.InvalidateRequerySuggested();
             return result;
         }
 
@@ -27,7 +46,16 @@ namespace Budweg_KommeGaaSystem.Command
         {
             if (parameter is MainViewModel mvm)
             {
-                mvm.CheckInEmployeeAdmin();
+                if (int.TryParse(mvm.EmployeeToCheckInOut, out int employeeId))
+                {
+                    if (_registrationRepo.IsEmployeeCheckedIn(employeeId))
+                    {
+                        _registrationRepo.UpdateEmployeeDeparture(employeeId);
+                    }
+
+                    _registrationRepo.CreateEmployeeArrival(employeeId, mvm.SelectedBuilding.BuildingId);
+                    mvm.LoadEmployeeInBuilding();
+                }
             }
         }
     }

@@ -12,17 +12,17 @@ namespace Budweg_KommeGaaSystem.ViewModels
 
         public DateTime Arrival
         {
-            get { return _registration.Arrival; }
+            get => _registration.Arrival;
         }
 
         public string EmployeeName 
         { 
-            get { return $"{_employee.FirstName} {_employee.LastName}"; } 
+            get => $"{_employee.FirstName} {_employee.LastName}";
         }
 
         public string Text
         {
-            get { return $"{Arrival.ToString("HH.mm")}: {EmployeeName}"; }
+            get => $"{Arrival.ToString("HH.mm")}: ({EmployeeId}) {EmployeeName}";
         }
 
         public int EmployeeId

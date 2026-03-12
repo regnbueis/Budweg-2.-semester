@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Documents;
+using Budweg_KommeGaaSystem.Command;
 using Budweg_KommeGaaSystem.Models;
 
 namespace Budweg_KommeGaaSystem.ViewModels
@@ -17,6 +18,9 @@ namespace Budweg_KommeGaaSystem.ViewModels
 
         public ObservableCollection<BuildingViewModel> BuildingVMs { get; set; }
         public ObservableCollection<RegistrationViewModel> RegistrationVMs { get; set; }
+
+        public CheckInCommand CheckInCommand { get; }
+        public CheckOutCommand CheckOutCommand { get; }
 
         private BuildingViewModel selectedBuilding;
         public BuildingViewModel SelectedBuilding
@@ -50,6 +54,9 @@ namespace Budweg_KommeGaaSystem.ViewModels
             {
                 BuildingVMs.Add(new BuildingViewModel(building));
             }
+
+            CheckInCommand = new CheckInCommand(registrationRepo);
+            CheckOutCommand = new CheckOutCommand(registrationRepo);
         }
 
 
@@ -69,19 +76,6 @@ namespace Budweg_KommeGaaSystem.ViewModels
                 }
             });
         }
-
-        public void CheckInEmployeeAdmin()
-        {
-
-            //employeeRepo.UpdateEmployeeBuildingId(int.Parse(EmployeeToCheckIn), 1);
-        }
-
-
-
-
-
-
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

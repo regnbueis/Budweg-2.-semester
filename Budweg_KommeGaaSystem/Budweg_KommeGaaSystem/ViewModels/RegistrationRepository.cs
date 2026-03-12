@@ -84,24 +84,43 @@ namespace Budweg_KommeGaaSystem.ViewModels
             registrations.Add(reg);
         }
         
-        public void UpdateEmployeeDeparture(Registration reg)
+        public void UpdateEmployeeDeparture(int employeeId) 
         {
+            Registration? registration = registrations
+                .Where(x => x.EmployeeId == employeeId)
+                .Where(x => x.Departure == null)
+                .FirstOrDefault();
+
+            if (registration == null)
+            {
+                return;
+            }
+
             DateTime temp = DateTime.Now;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "UPDATE REGISTRATION SET Departure = @Departure " +
-                    "WHERE EmployeeID = @EmployeeId";
+                string query = "UPDATE REGISTRATION SET Departure = @Departure WHERE RegistrationId = @RegistrationId";
                 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.Add("@Departure", SqlDbType.DateTime2).Value = temp;
-                    cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = reg.EmployeeId;
+                    cmd.Parameters.Add("@RegistrationId", SqlDbType.Int).Value = registration.RegistrationId;
                     cmd.ExecuteNonQuery();
+
+                    registration.Departure = temp;
                 }
             }
+        }
 
-            reg.Departure = temp;
+        public bool IsEmployeeCheckedIn(int employeeId)
+        {
+            Registration? registration = registrations
+                .Where(x => x.EmployeeId == employeeId)
+                .Where(x => x.Departure == null)
+                .FirstOrDefault();
+
+            return registration != null;
         }
     }
 }
