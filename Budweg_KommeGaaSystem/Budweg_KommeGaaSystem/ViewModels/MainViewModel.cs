@@ -30,11 +30,11 @@ namespace Budweg_KommeGaaSystem.ViewModels
             }
         }
 
-        private string employeeToCheckIn;
-        public string EmployeeToCheckIn 
+        private string employeeToCheckInOut;
+        public string EmployeeToCheckInOut 
         { 
-            get { return  employeeToCheckIn; }
-            set { employeeToCheckIn = value; }
+            get { return  employeeToCheckInOut; }
+            set { employeeToCheckInOut = value; }
         }
 
         public MainViewModel()

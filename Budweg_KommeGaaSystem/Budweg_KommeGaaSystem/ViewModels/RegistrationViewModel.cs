@@ -25,6 +25,11 @@ namespace Budweg_KommeGaaSystem.ViewModels
             get { return $"{Arrival.ToString("HH.mm")}: {EmployeeName}"; }
         }
 
+        public int EmployeeId
+        {
+            get => _employee.EmployeeId;
+        }
+
         public RegistrationViewModel(Registration reg, Employee employee)
         {
             _registration = reg;
